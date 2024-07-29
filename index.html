@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Marco Lancellotti" />
+  <title>Kart Crash</title>
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://use.typekit.net/pmn2aux.css">
+  <link href="https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'
+    integrity='sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=='
+    crossorigin='anonymous' />
+
+  <!-- Icona -->
+  <link rel="icon" href="images/logo.png" type="image/png">
+
+  <!-- Foglio di stile -->
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="">
+  <div class="game-container">
+    <!-- Logo -->
+    <header>
+      <img src="images/logo.png" alt="">
+    </header>
+
+    <!-- Pannello informazioni di gioco -->
+    <div class="game-panel">
+      <!-- Punteggio -->
+      <div class="score">
+        <span class="score-label">SCORE</span>
+        <span class="score-counter">0</span>
+      </div>
+
+
+      <!-- Tabellone di gioco -->
+      <div class="game-board">
+        <div class="street">
+          <div class="grid">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell grass"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell cones"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell fence"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell rock"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell fence"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell grass"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell water"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell cones"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell water"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell kart"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell rock"></div>
+            <div class="cell"></div>
+          </div>
+        </div>
+
+        <!-- Pannello di controllo -->
+        <div class="driving-panel">
+          <button class="left-button">
+            <img src="images/left-arrow.png" alt="left arrow">
+          </button>
+          <button class="right-button">
+            <img src="images/right-arrow.png" alt="right arrow"></img>
+          </button>
+        </div>
+
+        <!-- Schermata di fine gioco -->
+        <div class="end-game-screen hidden">
+          <h2 class="end-game-text">Game Over</h2>
+          <div class="score">SCORE: <span class="final-score">0</span></div>
+          <div class="cta">
+
+            <img class="character" src="images/kart-endcard.png" alt="character on kart">
+            <button class="play-again">Gioca ancora</button>
+
+            <!-- Instagram cta -->
+            <div class="instagram-cta">
+              <div class="logo">
+                <img src="images/instagram.svg" alt="Instagram logo">
+              </div>
+              <div class="text">
+                <strong>Grazie per aver giocato</strong>
+                <span id="my_span">Condividi il punteggio con i tuoi amici</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"> </script>
+</body>
+
+</html>
