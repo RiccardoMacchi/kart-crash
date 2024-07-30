@@ -14,7 +14,8 @@ const finalScore = document.querySelector('.final-score');
 const playAgain = document.querySelector('.play-again')
 // Recupero bonus coin
 const bonusCoin = document.getElementById('bonus_coin')
-
+// Recupero bottone turbo
+const turboBtn = document.querySelector('.turbo')
 
 // Griglia di gioco
 const gridMatrix = [
@@ -34,6 +35,7 @@ console.table(gridMatrix);
 // Impostazioni inizali del kart
 let ptnToBonus = 0;
 let activeBonus = false;
+let turbo = 0;
 let score = 0;
 let speed = 1000;
 const kartPosition = {
@@ -179,6 +181,39 @@ function incrementSpeed() {
     }
 }
 
+// Decremento velocità
+function decrementSpeed() {
+    if (speed < 1000) {
+        // Blocco del flusso
+        clearInterval(gameLoop)
+        // Aumento velocita dimnuendo il tempo dell'interval
+        speed += 100;
+        // riparte il flusso 
+        gameLoop = setInterval(runGameFlow, speed)
+    }
+}
+
+// Scroll automatico ostacoli, punti e velocità kart
+let gameLoop = setInterval(runGameFlow, speed)
+
+// Funzione incremento velocità grazie al turbo
+function turboBoost() {
+    // Incremento visivo
+    if (turbo < 4) {
+        turboBtn.innerHTML = `<img src="images/gauge-${++turbo}.png" alt="turbo">`
+        incrementSpeed()
+    }
+}
+
+// Funzione decremento velocità grazie al turbo
+function turboBoostDown() {
+    // Incremento visivo
+    if (turbo > 1) {
+        turboBtn.innerHTML = `<img src="images/gauge-${--turbo}.png" alt="turbo">`
+        decrementSpeed()
+    }
+}
+
 
 
 // Funzione di operazioni da ripetere ciclicamente
@@ -195,6 +230,9 @@ function runGameFlow() {
 
 
 // Evento di gioco
+turboBtn.addEventListener('click', turboBoost())
+
+
 btnLeft.addEventListener('click', function () {
     moveKart('left')
 })
@@ -212,6 +250,12 @@ document.addEventListener('keyup', function (e) {
             break;
         case 'ArrowRight':
             moveKart('right')
+            break;
+        case 'ArrowUp':
+            turboBoost()
+            break;
+        case 'ArrowDown':
+            turboBoostDown()
             break;
         default: return;
 
@@ -304,5 +348,3 @@ function coinInGrid() {
 }
 
 
-// Scroll automatico ostacoli, punti e velocità kart
-let gameLoop = setInterval(runGameFlow, speed)
