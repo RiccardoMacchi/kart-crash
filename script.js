@@ -12,7 +12,8 @@ const endGame = document.querySelector('.end-game-screen');
 const finalScore = document.querySelector('.final-score');
 // Recupero pulsante gioca ancora
 const playAgain = document.querySelector('.play-again')
-
+// Recupero bonus coin
+const bonusCoin = document.getElementById('bonus_coin')
 
 
 // Griglia di gioco
@@ -119,9 +120,26 @@ function scrollOsbtacles() {
     let lastRow = gridMatrix.pop();
 
 
+    if (ptnToBonus === 5) {
+        lastRow = moreBonus(lastRow)
+        activeBonus = true;
+        setTimeout(function () {
+            activeBonus = false;
+        }, 5000)
+    }
+
+    if (ptnToBonus >= 10) {
+        lastRow = disactiveMoreBonus(lastRow)
+        setTimeout(function () {
+            ptnToBonus = 0;
+            activeBonus = false;
+            bonusCoin.innerHTML = '';
+        }, 8000)
+    }
+
+
     // Aggiunta della moneta alla ristampa con controllo se è la sola nel grid
-    if (activeBonus) lastRow = moreBonus(lastRow);
-    else if (!coinInGame) lastRow = insertCoin(lastRow);
+    if (!coinInGame) lastRow = insertCoin(lastRow);
 
     // Mescolazione random della lista ostacoli
     shuffleElements(lastRow);
@@ -223,11 +241,13 @@ function gameOver() {
 // Funzioni bonus
 function getBonus() {
     // Aggiunta level bonus
-    ptnToBonus++;
-    if (ptnToBonus > 5 && ptnToBonus < 10) {
-        activeBonus = true
+    if (!activeBonus) {
+        ++ptnToBonus;
+    }
+    if (ptnToBonus < 5) {
+        bonusCoin.innerHTML += `<i class="fa-solid fa-coins"></i>`;
     } else {
-        activeBonus = false
+        bonusCoin.innerHTML = 'BONUS ATTIVO'
     }
     score += 25;
     scoreCounter.innerHTML = score;
@@ -244,13 +264,20 @@ function getBonus() {
 function moreBonus(row) {
     console.log("row")
     for (let i = 0; i < row.length - 1; i++) {
-
         if (row[i] === '') {
             row[i] = 'coin'
-
         }
     }
 
+    return row;
+}
+
+function disactiveMoreBonus(row) {
+    for (let i = 0; i < row.length - 1; i++) {
+        if (row[i] === 'coin') {
+            row[i] = '';
+        }
+    }
     return row;
 }
 
