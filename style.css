@@ -310,6 +310,21 @@ a.button:active {
 	animation: bonus 1s ease;
 }
 
+#bonus_coin.plus_coin::after {
+	content: ' ';
+	background-image: url(images/coin.gif);
+	background-size: cover;
+	color: yellow;
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	top: 0;
+	left: 0;
+	transform: translate(-50%, -50%);
+	opacity: 0;
+	animation: bonus 1s ease;
+}
+
 @keyframes bonus {
 	from {
 		top: 0;
@@ -331,10 +346,11 @@ a.button:active {
 
 #bonus_coin {
 	color: #4c64f2;
+	position: relative;
 }
 
 #bonus_coin i {
-	color: #4c64f2;
+	color: red;
 }
 
 .turbo {

@@ -127,18 +127,17 @@ function scrollOsbtacles() {
         activeBonus = true;
         setTimeout(function () {
             activeBonus = false;
-        }, 5000)
+        }, 2000)
     }
 
     if (ptnToBonus >= 10) {
         lastRow = disactiveMoreBonus(lastRow)
         setTimeout(function () {
-            ptnToBonus = 0;
             activeBonus = false;
+            ptnToBonus = 0;
             bonusCoin.innerHTML = '';
-        }, 8000)
+        }, 6000)
     }
-
 
     // Aggiunta della moneta alla ristampa con controllo se è la sola nel grid
     if (!coinInGame) lastRow = insertCoin(lastRow);
@@ -230,7 +229,9 @@ function runGameFlow() {
 
 
 // Evento di gioco
-turboBtn.addEventListener('click', turboBoost())
+turboBtn.addEventListener('click', function () {
+    incrementSpeed()
+})
 
 
 btnLeft.addEventListener('click', function () {
@@ -290,6 +291,10 @@ function getBonus() {
     }
     if (ptnToBonus < 5) {
         bonusCoin.innerHTML += `<i class="fa-solid fa-coins"></i>`;
+        bonusCoin.classList.add('plus_coin')
+        setTimeout(function () {
+            bonusCoin.classList.remove('plus_coin')
+        }, 700)
     } else {
         bonusCoin.innerHTML = 'BONUS ATTIVO'
     }
@@ -300,7 +305,7 @@ function getBonus() {
     // Rimozione classe per evenutali future monete
     setTimeout(function () {
         scoreCounter.classList.remove('bonus')
-    }, 1000)
+    }, 700)
 }
 
 // Funzione bonus bonus
