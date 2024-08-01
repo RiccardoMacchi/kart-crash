@@ -23,11 +23,11 @@ const turboDown = document.getElementById('turbo_down')
 
 // Griglia di gioco
 const gridMatrix = [
-    ['', '', '', '', 'coin', 'grass', ''],
-    ['', 'cones', '', 'coin', '', '', 'fence'],
-    ['', '', 'rock', 'coin', '', '', ''],
-    ['fence', '', '', 'coin', '', '', ''],
-    ['', '', 'grass', 'coin', '', 'water', ''],
+    ['', '', '', '', '', 'grass', ''],
+    ['', 'cones', '', '', '', '', 'fence'],
+    ['', '', 'rock', '', '', '', ''],
+    ['fence', '', '', '', '', '', ''],
+    ['', '', 'grass', '', '', 'water', ''],
     ['', '', '', '', 'cones', '', ''],
     ['', 'water', '', '', '', '', ''],
     ['', '', '', '', '', '', ''],
@@ -203,7 +203,7 @@ function decrementSpeed() {
 }
 
 // Scroll automatico ostacoli, punti e velocità kart
-// let gameLoop = setInterval(runGameFlow, speed)
+let gameLoop = setInterval(runGameFlow, speed)
 
 // Funzione incremento velocità grazie al turbo
 function turboBoost() {
