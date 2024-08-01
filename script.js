@@ -14,16 +14,20 @@ const finalScore = document.querySelector('.final-score');
 const playAgain = document.querySelector('.play-again')
 // Recupero bonus coin
 const bonusCoin = document.getElementById('bonus_coin')
-// Recupero bottone turbo
+// Recupero div turbo per dispaly
 const turboBtn = document.querySelector('.turbo')
+// Recupero pulsanti UP e Down
+const turboUp = document.getElementById('turbo_up')
+const turboDown = document.getElementById('turbo_down')
+
 
 // Griglia di gioco
 const gridMatrix = [
-    ['', '', '', '', '', 'grass', ''],
-    ['', 'cones', '', '', '', '', 'fence'],
-    ['', '', 'rock', '', '', '', ''],
-    ['fence', '', '', '', '', '', ''],
-    ['', '', 'grass', '', '', 'water', ''],
+    ['', '', '', '', 'coin', 'grass', ''],
+    ['', 'cones', '', 'coin', '', '', 'fence'],
+    ['', '', 'rock', 'coin', '', '', ''],
+    ['fence', '', '', 'coin', '', '', ''],
+    ['', '', 'grass', 'coin', '', 'water', ''],
     ['', '', '', '', 'cones', '', ''],
     ['', 'water', '', '', '', '', ''],
     ['', '', '', '', '', '', ''],
@@ -35,7 +39,10 @@ console.table(gridMatrix);
 // Impostazioni inizali del kart
 let ptnToBonus = 0;
 let activeBonus = false;
-let turbo = 0;
+// Stop bonus 
+let destroyBonus = false;
+let resetBonus = true
+let turbo = 1;
 let score = 0;
 let speed = 1000;
 const kartPosition = {
@@ -122,25 +129,28 @@ function scrollOsbtacles() {
     let lastRow = gridMatrix.pop();
 
 
-    if (ptnToBonus === 5) {
+    if (activeBonus) {
+        console.log("cilco Bonus")
         lastRow = moreBonus(lastRow)
-        activeBonus = true;
         setTimeout(function () {
-            activeBonus = false;
-        }, 2000)
-    }
-
-    if (ptnToBonus >= 10) {
+            activeBonus = false
+            destroyBonus = true
+        }, 10000)
+    } else if (destroyBonus) {
+        console.log("Ciclo STOP STOP bonus")
         lastRow = disactiveMoreBonus(lastRow)
-        setTimeout(function () {
-            activeBonus = false;
-            ptnToBonus = 0;
-            bonusCoin.innerHTML = '';
-        }, 6000)
+        if (resetBonus) {
+            setTimeout(function () {
+                destroyBonus = false
+                ptnToBonus = 0
+                bonusCoin.innerHTML = '';
+            }, 14000)
+        }
+        resetBonus = false
+    } else {
+        if (!coinInGame) lastRow = insertCoin(lastRow);
     }
 
-    // Aggiunta della moneta alla ristampa con controllo se è la sola nel grid
-    if (!coinInGame) lastRow = insertCoin(lastRow);
 
     // Mescolazione random della lista ostacoli
     shuffleElements(lastRow);
@@ -193,7 +203,7 @@ function decrementSpeed() {
 }
 
 // Scroll automatico ostacoli, punti e velocità kart
-let gameLoop = setInterval(runGameFlow, speed)
+// let gameLoop = setInterval(runGameFlow, speed)
 
 // Funzione incremento velocità grazie al turbo
 function turboBoost() {
@@ -229,8 +239,12 @@ function runGameFlow() {
 
 
 // Evento di gioco
-turboBtn.addEventListener('click', function () {
-    incrementSpeed()
+turboUp.addEventListener('click', function () {
+    turboBoost()
+})
+
+turboDown.addEventListener('click', function () {
+    turboBoostDown()
 })
 
 
@@ -285,9 +299,12 @@ function gameOver() {
 
 // Funzioni bonus
 function getBonus() {
+    ptnToBonus++;
     // Aggiunta level bonus
-    if (!activeBonus) {
-        ++ptnToBonus;
+    if (ptnToBonus === 5 && !destroyBonus) {
+        activeBonus = true
+        console.log("stampa punto", ptnToBonus)
+
     }
     if (ptnToBonus < 5) {
         bonusCoin.innerHTML += `<i class="fa-solid fa-coins"></i>`;
